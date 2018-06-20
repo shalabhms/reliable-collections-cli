@@ -1,0 +1,6 @@
+[submodule "service-fabric-indexing"]
+	path = service-fabric-indexing
+	url = https://github.com/amenarde/service-fabric-indexing.git
+[submodule "service-fabric-queryable"]
+	path = service-fabric-queryable
+	url = https://github.com/amenarde/service-fabric-queryable.git
