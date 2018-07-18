@@ -1,140 +1,41 @@
 
 ### SFQuery
+SFQuery is an easy-to-consume python package that allows you to take advantage of your query-enabled Service Fabric service. To add querying capabilities to your service visit the [service-fabric-queryable](https://github.com/jessebenson/service-fabric-queryable) repository.
 
-#### How to use
-
-##### Cluster
-
-    Cluster(credentials : Authentication, url : 'http://myaddress:HttpGatewayEndpoint') : Cluster
-    
-    get_applications() : Application list
-    get_application(ApplicationName : string) : Application
-    get_manifest() : Models.ClusterManifest
-    
-##### Application
-
-    Application(cluster : Cluster, name : string) : Application
-    name : string
-    cluster : Cluster
-    
-    get_services() : Service List
-    get_service(ServiceName : string) : Service
-    get_information() : Models.ApplicationInfo
-    
-##### Service
-
-    Service(application : Application, name : string) : Service
-    name : string
-    application : Application
-    
-    get_dictionaries() : Dictionary list
-    get_dictionary(DictionaryName : string) : Dictionary
-    get_information() : Models.ServiceInfo
-    
-##### Dictionary 
-
-    Dictionary(service : Service, name : string) : Dictionary
-    name : string
-    service : Service
-    
-    get_information() : json
-    get_complex_type(TypeName : 'Namespace.Name') : json
-    
-    query(query : string, *param : PartitionLookup, *partition_name : id or key) : json
-
-
-##### Enum: PartitionLookup (used to specify query argument)
-    KEY
-    ID
-
-### Examples
-#### Discover a dictionary and its types
-```python
-# get my cluster and ask for applications
-cluster = Cluster('http://localhost:19080')
-applications = cluster.get_applications()
-
-for application in applications:
-    print(application.name)
-    
+#### Installing
+To install and start using `sfquery` make sure you have [python](https://www.python.org/getit/) 3.6 and [pip](https://pip.pypa.io/en/stable/installing/) installed (pip probably came with your python distro) , and install sfquery using
+```
+pip install sfquery
+```
+(since sfquery is not yet released install with:)
+```
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sfquery
 ```
 
-> fabric:/BasicApp
+#### Install Jupyter Notebook
+While you can consume sfquery any way you like, if you would like to use the sfquery interface, it is recommended you use a Jupyter notebook. Jupyter notebooks are powerful web application python kernels that offer widgets and interaction. You can install Jupyter notebooks using using `pip install jupyter` or [here](http://jupyter.org/install)
 
+### How to use
+To open the sfquery interface, open a new jupyter notebook. Run the following commands
 ```python
-# get an application and ask for services
-application = applications[0]
-services = application.get_services()
-for service in services:
-    print(service.name)
-
+from sfquery import *
+cluster = Cluster(Authentication(), 'http://localhost:19080/')
+interface = Interface(cluster)
+```
+- If your cluster is deployed, replace `http://localhost:19080/` with your cluster's endpoint
+- If your cluster is cert-authenticated, instead of `Authentication()` use
+```python
+ClientCertAuthentication(r'C:\path\to\your\unencrypted.pem', None, True)
+# secondary arguments are your certificate authority and whether you want to not verify your cluster's cert
 ```
 
-> fabric:/BasicApp/CarSvc
+At this point, you should see this interface. Feel free to fiddle with it and try some OData queries.
+If you want to use sfquery outside of Jupyter or without the interface, [there is a simple API that you can use and a tutorial on using it.](../blob/master/sfquery/api.md)
 
-> fabric:/BasicApp/ProductSvc
+![jupyter interface](../blob/master/img/jupyter_interface.png)
 
-> fabric:/BasicApp/UserSvc
-
-```python
-
-# get a service and ask for its dictionaries
-service = services[2]
-dictionaries = service.get_dictionaries()
-
-# print information about the dictionaries
-for dictionary in dictionaries:
-    info = dictionary.get_information()
-    print(dictionary.name)
-    for child in info:
-        print('\t' + child.get('Name') + ': ' + child.get('Type'))
-
+#### Issues
+If your jupyter notebook says it cannot find `sfquery`, your notebook's python kernel may be different than the one your computer is using. You can install `sfquery` to your jupyter notebook from your notebook using:
 ```
-
-> users
-
-	>> PartitionId: Edm.Guid
-    
-	>> Key: Basic.Common.UserName
-    
-	>> Value: Basic.Common.UserProfile
-    
-	>> Etag: Edm.String
-
-```python
-
-dictionary = dictionaries[0]
-
-# get information about a specific type in that dictionary
-info = dictionary.get_complex_type('Basic.Common.UserName')
-print('Basic.Common.UserName')
-for child in info:
-    print('\t' + child.get('Name') + ': ' + child.get('Type'))
-        
-```
-
-> Basic.Common.UserName
-
-	>> First: Edm.String
-    
-	>> Last: Edm.String
-
-#### Get a dictionary and query a specific partition
-```python
-dictionary = Cluster('http://localhost:19080').get_application('BasicApp').get_service('UserSvc').get_dictionary('users')
-
-# query all the dictionaries
-response = dictionary.query('$top=1')
-
-# query based on partition id
-response = dictionary.query('$top=1', 
-                            '306f3bcf-eedb-4888-927d-cf5d9b118aa0', 
-                            'guid')
-
-# or
-partition_id = dictionary.get_partition_ids()[0]
-response = dictionary.query('$top=1', partition_id, 'id')
-
-# query based on partition key
-response = dictionary.query('$top=1', 10, 'key')
+!pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple sfquery
 ```
