@@ -17,7 +17,6 @@ from rcctl.apiclient import create as client_create
 
 # Need to import so global help dict gets updated
 import rcctl.helps.main # pylint: disable=unused-import
-import rcctl.helps.property # pylint: disable=unused-import
 
 class SFCommandHelp(CLIHelp):
     """Service Fabric CLI help loader"""
@@ -42,12 +41,13 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandSuperGroup(__name__, self, 'rcctl.custom_reliablecollections#{}',
                                client_factory=client_create) as super_group: 
-            with super_group.group('dict') as group:
+            with super_group.group('collections') as group:
                 group.command('query', 'query_reliablecollections')
                 group.command('execute', 'execute_reliablecollections')
                 group.command('schema', 'get_reliablecollections_schema')
                 group.command('list', 'get_reliablecollections_list')
-		
+                group.command('type', 'get_reliablecollections_type')
+        
         return OrderedDict(self.command_table)
 
     def load_arguments(self, command):

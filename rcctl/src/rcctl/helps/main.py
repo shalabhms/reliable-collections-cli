@@ -10,9 +10,7 @@ from knack.help_files import helps
 
 helps[''] = """
     type: group
-    short-summary: Commands for managing Service Fabric clusters
-        and entities. This version is compatible with Service Fabric 6.2
-        runtime.
+    short-summary: Commands for managing Service Fabric reliable collections.
     long-summary: Commands follow the noun-verb pattern. See subgroups for more
         information.
 """
@@ -20,4 +18,9 @@ helps[''] = """
 helps['cluster'] = """
     type: group
     short-summary: Select, manage and operate Service Fabric clusters
+"""
+
+helps['collections'] = """
+    type: group
+    short-summary: Query and perform operations on reliable collections
 """
