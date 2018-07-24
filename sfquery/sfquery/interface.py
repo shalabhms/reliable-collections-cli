@@ -1,4 +1,10 @@
 from ipywidgets import widgets
+import json
+import time
+from .sfquery import PartitionLookup
+import warnings
+
+warnings.filterwarnings("ignore", message="Accept header absent and forced to application/json")
 
 class Interface(object):
     
@@ -108,14 +114,19 @@ class Interface(object):
                 print('Please enter a valid query')
             return
         
+        start = time.time()
+
         if(self.partition_key_entry.value != ''):
             with self.query_results:
                 print(json.dumps(self.dictionary.query(self.query_entry.value, PartitionLookup.KEY, self.partition_key_entry.value), indent=4))
+                print('Query took ' + str(time.time()-start) + ' sec')
         elif(self.partition_guid_entry.value != ''):
             with self.query_results:
                 print(json.dumps(self.dictionary.query(self.query_entry.value, PartitionLookup.ID, self.partition_guid_entry.value), indent=4))
+                print('Query took ' + str(time.time()-start) + ' sec')
         else:
             with self.query_results:
                 print(json.dumps(self.dictionary.query(self.query_entry.value), indent=4))
+                print('Query took ' + str(time.time()-start) + ' sec')
         
         
