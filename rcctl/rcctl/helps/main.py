@@ -17,7 +17,7 @@ helps[''] = """
 
 helps['cluster'] = """
     type: group
-    short-summary: Select, manage and operate Service Fabric clusters
+    short-summary: Select a Service Fabric cluster to operate against. Defaults to http://localhost:19080/
 """
 
 helps['collections'] = """

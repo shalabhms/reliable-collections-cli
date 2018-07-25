@@ -21,8 +21,8 @@ setup(
     description='Azure Service Fabric Reliable Collections command line',
     long_description=read('README.rst'),
     url='https://github.com/amenarde/service-fabric-queryable-indexes',
-    author='Microsoft Corporation',
-    author_email='t-anmen@microsoft.com',
+    author='Antonio Menarde',
+    author_email='amenarde@gmail.com',
     license='MIT',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -50,7 +50,10 @@ setup(
         'jsonpickle',
         'adal',
         'future',
-		'sfquery'
+		'sfquery==0.1.0',
+        'xmltodict',
+        'xmljson',
+        'pandas'
     ],
     extras_require={
         'test': [

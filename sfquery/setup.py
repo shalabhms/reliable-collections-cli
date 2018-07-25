@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="sfquery",
-    version="0.0.18",
+    version="0.1.0",
     author="Antonio Menarde",
     author_email="amenarde@gmail.com",
     description="A package to query reliable collections in python notebooks",

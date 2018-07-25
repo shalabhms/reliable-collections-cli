@@ -49,11 +49,3 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('type', 'get_reliablecollections_type')
         
         return OrderedDict(self.command_table)
-
-    def load_arguments(self, command):
-        """Load specialized arguments for commands"""
-        from rcctl.params import custom_arguments
-
-        custom_arguments(self, command)
-
-        super(SFCommandLoader, self).load_arguments(command)
