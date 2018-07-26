@@ -4,28 +4,24 @@
 # license information.
 # -----------------------------------------------------------------------------
 
-"""Azure Service Fabric CLI package that can be installed using setuptools"""
+import setuptools
 
-import os
-from setuptools import setup
-
-
-def read(fname):
-    """Local read helper function for long documentation"""
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
-setup(
+setuptools.setup(
     name='rcctl',
-    version='1.0.1',
+    version='1.0.2',
     description='Azure Service Fabric Reliable Collections command line',
-    long_description=read('README.rst'),
-    url='https://github.com/amenarde/service-fabric-queryable-indexes',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url='https://github.com/amenarde/reliable-collections-cli',
     author='Antonio Menarde',
     author_email='amenarde@gmail.com',
     license='MIT',
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'Environment :: Console',
@@ -50,7 +46,7 @@ setup(
         'jsonpickle',
         'adal',
         'future',
-		'sfquery==0.1.0',
+	'sfquery>=0.1.0',
         'xmltodict',
         'xmljson',
         'pandas'
