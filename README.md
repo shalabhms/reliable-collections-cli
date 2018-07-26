@@ -50,6 +50,7 @@ ClientCertAuthentication(r"C:\path\to\your\unencrypted.pem", None, True)
 # secondary arguments are your certificate authority and whether you want to not verify your cluster's cert
 ```
 At this point, you should see this interface. Feel free to fiddle with it and try some OData queries.
+
 ![jupyter interface](../master/img/jupyter_interface.png)
 
 If your jupyter notebook says it cannot find `sfquery`, your notebook's python kernel may be different than the one your computer is using. You can install `sfquery` to your jupyter notebook from your notebook using:
