@@ -28,7 +28,7 @@ Queries against service-fabric-querying are written in the [OData format](https:
 | WHERE | $filter |
 | ORDER BY | $orderby |
 
-`Querying` supports all the *logical operators* provided by the [convention](http://docs.oasis-open.org/odata/odata/v4.01/cs01/part2-url-conventions/odata-v4.01-cs01-part2-url-conventions.html#sec_LogicalOperators).
+`Querying` supports all the *logical operators* provided by the [OData convention](http://docs.oasis-open.org/odata/odata/v4.01/cs01/part2-url-conventions/odata-v4.01-cs01-part2-url-conventions.html#sec_LogicalOperators).
 
 ## Using the `sfquery` interface
 `rcctl` is the command line wrapper of its underlying package `sfquery`. If instead of command line, you would like to use the `sfquery interface`, you can do so in a Jupyter notebook. Jupyter notebooks are local, web-based python kernels that offer widgets and interaction.
