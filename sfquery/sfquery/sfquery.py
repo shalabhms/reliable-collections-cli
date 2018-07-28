@@ -1,6 +1,3 @@
-# SFQuery.py
-# author: t-anmen@microsoft.com
-
 import requests
 import xml.etree.ElementTree as et # To parse/view XML
 from xmljson import badgerfish as bf

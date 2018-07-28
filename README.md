@@ -63,9 +63,4 @@ For more advanced usage, you may want to use the `sfquery` python package direct
 
 ## Contributing
 
-This project has adopted the
-[Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information, see the
-[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any
-additional questions or comments.
+Contributions are welcome on this project. See [Contributing.md](../master/Contributing.md) for information on how to go about contributing to this project.

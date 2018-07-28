@@ -1,7 +1,6 @@
 # Contributing
 
 Reliable Collections CLI welcomes any kind of contribution, whether it be reporting issues or sending pull requests.
-When contributing to this repository abide by the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 
 ## Code changes
 
@@ -24,7 +23,7 @@ When making changes, the following practices are recommended:
 
 Once you have validated your changes and feel confident you are ready to contribute back your work, submit a pull request.
 
-All pull requests should target the `master` branch, as it is the main development branch.
+All pull requests should target the `develop` branch, as it is the main development branch.
 
 From here, follow the guidance of reviewers to get your work merged.
 
@@ -33,13 +32,11 @@ From here, follow the guidance of reviewers to get your work merged.
 For questions related to Azure Service Fabric clusters, take a look at the [tag on StackOverflow](https://stackoverflow.com/questions/tagged/azure-service-fabric)
 and [official documentation](https://docs.microsoft.com/en-us/azure/service-fabric/).
 
-### General Service Fabric issues
-
 If your issue is not specific to the Service Fabric CLI, please use the [Service Fabric issues repository](https://github.com/Azure/service-fabric-issues/issues) to report an issue.
 
 ### CLI specific issues
 
-If your issue is relevant to the Reliable Collections CLI, please use this repositories issue tracker.
+If your issue is relevant to the Reliable Collections CLI, please use this repository's issue tracker.
 
 Be sure to search for similar previously reported issues prior to creating a new one.
 In addition, here are some good practices to follow when reporting issues:

@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for
-# license information.
+# Adapted from Microsoft OSS
+# see https://github.com/Microsoft/service-fabric-cli
 # -----------------------------------------------------------------------------
 
 import setuptools
@@ -16,8 +15,8 @@ setuptools.setup(
     description='Azure Service Fabric Reliable Collections command line',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/amenarde/reliable-collections-cli',
-    author='Antonio Menarde',
+    url='https://github.com/shalabhms/reliable-collections-cli',
+    author='Antonio Menarde, Shalabh Mohan Shrivastava',
     author_email='amenarde@gmail.com',
     license='MIT',
     classifiers=[
