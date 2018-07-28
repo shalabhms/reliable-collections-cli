@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for
-# license information.
+# Adapted from Microsoft OSS
+# see https://github.com/Microsoft/service-fabric-cli
 # -----------------------------------------------------------------------------
 
 """Azure Service Fabric Reliable Collection command line environment for querying.

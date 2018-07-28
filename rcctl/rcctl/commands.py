@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for
-# license information.
+# Adapted from Microsoft OSS
+# see https://github.com/Microsoft/service-fabric-cli
 # -----------------------------------------------------------------------------
 
 """Command and help loader for the Service Fabric CLI.
@@ -41,11 +40,11 @@ class SFCommandLoader(CLICommandsLoader):
 
         with CommandSuperGroup(__name__, self, 'rcctl.custom_reliablecollections#{}',
                                client_factory=client_create) as super_group: 
-            with super_group.group('collections') as group:
-                group.command('query', 'query_reliablecollections')
-                group.command('execute', 'execute_reliablecollections')
-                group.command('schema', 'get_reliablecollections_schema')
-                group.command('list', 'get_reliablecollections_list')
-                group.command('type', 'get_reliablecollections_type')
+            with super_group.group('dictionary') as group:
+                group.command('query', 'query_reliabledictionary')
+                group.command('execute', 'execute_reliabledictionary')
+                group.command('schema', 'get_reliabledictionary_schema')
+                group.command('list', 'get_reliabledictionary_list')
+                group.command('type-schema', 'get_reliabledictionary_type_schema')
         
         return OrderedDict(self.command_table)

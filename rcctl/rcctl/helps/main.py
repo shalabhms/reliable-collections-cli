@@ -1,10 +1,9 @@
 # -----------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for
-# license information.
+# Adapted from Microsoft OSS
+# see https://github.com/Microsoft/service-fabric-cli
 # -----------------------------------------------------------------------------
 
-"""Help documentation for Service Fabric groups"""
+"""Help documentation for Reliable Collection groups"""
 
 from knack.help_files import helps
 
@@ -20,7 +19,7 @@ helps['cluster'] = """
     short-summary: Select a Service Fabric cluster to operate against. Defaults to http://localhost:19080/
 """
 
-helps['collections'] = """
+helps['dictionary'] = """
     type: group
-    short-summary: Query and perform operations on reliable collections
+    short-summary: Query and perform operations on IReliableDictionaries
 """

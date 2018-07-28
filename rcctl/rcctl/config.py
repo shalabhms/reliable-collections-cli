@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See License.txt in the project root for
-# license information.
+# Adapted from Microsoft OSS
+# see https://github.com/Microsoft/service-fabric-cli
 # -----------------------------------------------------------------------------
 
 """Read and modify configuration settings related to the CLI"""
