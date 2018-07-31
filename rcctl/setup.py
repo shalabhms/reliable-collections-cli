@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='rcctl',
-    version='1.0.2',
+    version='1.1.0',
     description='Azure Service Fabric Reliable Collections command line',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -45,7 +45,7 @@ setuptools.setup(
         'jsonpickle',
         'adal',
         'future',
-	'sfquery>=0.1.0',
+	'sfquery>=0.2.0',
         'xmltodict',
         'xmljson',
         'pandas'

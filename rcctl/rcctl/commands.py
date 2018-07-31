@@ -10,6 +10,7 @@ python function.
 """
 
 from collections import OrderedDict
+from knack.arguments import ArgumentsContext
 from knack.commands import CLICommandsLoader, CommandSuperGroup
 from knack.help import CLIHelp
 from rcctl.apiclient import create as client_create
@@ -46,5 +47,13 @@ class SFCommandLoader(CLICommandsLoader):
                 group.command('schema', 'get_reliabledictionary_schema')
                 group.command('list', 'get_reliabledictionary_list')
                 group.command('type-schema', 'get_reliabledictionary_type_schema')
+
+        with ArgumentsContext(self, 'dictionary') as ac:
+            ac.argument('application_name', options_list=['--application-name', '-a'])
+            ac.argument('service_name', options_list=['--service-name', '-s'])
+            ac.argument('dictionary_name', options_list=['--dictionary-name', '-d'])
+            ac.argument('output_file', options_list=['--output-file', '-out'])
+            ac.argument('query_string', options_list=['--query-string', '-q'])
+            ac.argument('type_name', options_list=['--type-name', '-t'])
         
         return OrderedDict(self.command_table)

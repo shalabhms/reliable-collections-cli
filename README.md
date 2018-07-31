@@ -1,9 +1,9 @@
 
-# Query your reliable collections using `rcctl`
+# Interact with your reliable collections using `rcctl`
 
-## `rcctl` is an easy-to-consume python package that allows you to interact with your query-enabled Service Fabric service using command line or python
+`rcctl` is an easy-to-consume python package that allows you to interact with your query-enabled Service Fabric service using command line or python
 
-**`rcctl` only works for query-enabled services. To add querying capabilities to your service visit the [service-fabric-queryable](https://github.com/jessebenson/service-fabric-queryable) repository.**
+`rcctl` only works for query-enabled services. To add querying capabilities to your service visit the [service-fabric-queryable](https://github.com/jessebenson/service-fabric-queryable) repository.
 
 ## Installing
 
@@ -15,6 +15,8 @@ pip install rcctl
 
 ## Using `rcctl`
 
+[**Click here for a full example walkthrough of using `rcctl`.**](../develop/docs/rcctl-walkthrough.md)
+
 To get started, simply open a command prompt window and enter
 
 ```shell
@@ -23,7 +25,13 @@ rcctl -h
 
 If your cluster is not an a local endpoint, you must connect to it using `rcctl cluster select` before being able to interact with your service. [Connecting to a cluster in `rcctl` works the same way as it does in `sfctl`.](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cli#select-a-cluster)
 
+### Basic Commands
+
 Once you have connected, you can use `rcctl dictionary` to `list` your reliable dictionaries, find out about the `schema` of a reliable dictionary, and then find out more about any complex `type-schema` in that schema. You can then `query` against any dictionary in your query-enabled service, and `execute` updates to that collection.
+
+> **Note** that at this time `execute` is not well supported, so is use-at-your-own risk
+
+### Querying on `rcctl`
 
 Queries against service-fabric-querying are written in the [OData format](https://www.odata.org/documentation/odata-version-2-0/uri-conventions/). The [querying middleware](https://github.com/jessebenson/service-fabric-queryable) supports the following commands, which can be thought of like SQL:
 

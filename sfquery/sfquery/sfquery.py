@@ -104,6 +104,7 @@ class Service(object):
         self.name = name
         port = application.cluster._get_httpapplicationgatewayendpoint()
         self._url = self.application.cluster._url.rsplit(':', 1)[0] + ':' + port + '/' + self.application.name + '/' + name
+        self._url = self._url.replace('https', 'http').replace('HTTPS', 'HTTP')
        
     def get_information(self):
         return self.application.cluster._fabric_client.get_service_info(self.application.name, '{}~{}'.format(self.application.name, self.name))

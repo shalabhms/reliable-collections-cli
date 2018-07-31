@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="sfquery",
-    version="0.1.2",
+    version="0.2.0",
     author="Antonio Menarde, Shalabh Mohan Shrivastava",
     author_email="amenarde@gmail.com",
     description="A package to query reliable collections using python or jupyter notebook interfaces",
