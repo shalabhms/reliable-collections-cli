@@ -59,6 +59,9 @@ class Interface(object):
         self.query_button.on_click(self.try_query)
         self.query_results = widgets.Output(layout={'border': '1px solid black'})
         self.application_selector.observe(self.create_application)
+        self.service_selector.observe(self.create_service)
+        self.dictionary_selector.observe(self.create_dictionary)
+
         
         display(self.application_selector)
         display(self.service_selector)
@@ -75,26 +78,39 @@ class Interface(object):
             self.create_application(self.application_selector)   
         
     def create_application(self, sender):
+        self.service_selector.unobserve(self.create_service)
         self.app = self.cluster.get_application(self.application_selector.value)
         services = self.app.get_services()
         name_list = []
+        
         for service in services:
             name_list.append(service.get_information().name.replace('fabric:/','').replace(self.application_selector.value + '/',''))
 
-        self.service_selector.options = name_list
-        self.service_selector.observe(self.create_service)
-        self.create_service(self.service_selector)
+        with self.service_selector.hold_trait_notifications():
+            self.service_selector.options = name_list
+        if len(name_list) > 0:
+            self.service_selector.observe(self.create_service)
+            self.service_selector.value = self.service_selector.options[0]
+            self.create_service(self.service_selector)
+        else:
+            self.service_selector.value = None
 
     def create_service(self, sender):  
+        self.dictionary_selector.unobserve(self.create_dictionary)
         self.service = self.app.get_service(self.service_selector.value)
         name_list = []
+        
         for dictionary in self.service.get_dictionaries():
             name_list.append(dictionary.name)
-        self.dictionary_selector.options = name_list
+            
+        with self.dictionary_selector.hold_trait_notifications():    
+            self.dictionary_selector.options = name_list
         if len(name_list) > 0:
-            self.dictionary_selector.value = name_list[0]
+            self.dictionary_selector.observe(self.create_dictionary)
+            self.dictionary_selector.value = self.dictionary_selector.options[0]
             self.create_dictionary(self.dictionary_selector)
-        self.dictionary_selector.observe(self.create_dictionary)
+        else:
+            self.dictionary_selector.value = None
         
     def create_dictionary(self, sender):
         dictionaries = self.service.get_dictionaries()
