@@ -53,6 +53,7 @@ class SFCommandLoader(CLICommandsLoader):
             ac.argument('service_name', options_list=['--service-name', '-s'])
             ac.argument('dictionary_name', options_list=['--dictionary-name', '-d'])
             ac.argument('output_file', options_list=['--output-file', '-out'])
+            ac.argument('input_file', options_list=['--input-file', '-in'])
             ac.argument('query_string', options_list=['--query-string', '-q'])
             ac.argument('type_name', options_list=['--type-name', '-t'])
         

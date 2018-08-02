@@ -123,7 +123,7 @@ def query_reliabledictionary(client, application_name, service_name, dictionary_
     print('Printed output to: ' + output_file)
     print(result)
     
-def execute_reliabledictionary(client, application_name, service_name, input_file, partition_id=-1):
+def execute_reliabledictionary(client, application_name, service_name, input_file):
     """Execute create, update, delete operations on existing reliable dictionaries.
 
     carry out create, update and delete operations on existing reliable dictionaries for given application and service.
@@ -132,20 +132,14 @@ def execute_reliabledictionary(client, application_name, service_name, input_fil
     :type application_name: str
     :param service_name: Name of the service.
     :type service_name: str
-    :param partition_id: Partition Identifier of the owning reliable dictionary.
-    :type partition_id: str
-    :param output_file: input json file to provide the operation information for reliable dictionaries.
+    :param output_file: input file with list of json to provide the operation information for reliable dictionaries.
     """
-    if partition_id is -1:
-        url = 'http://localhost:19081/'+application_name+'/'+service_name+'/api/StatefulQuery/'
-    else:
-        url = 'http://localhost:19081/'+application_name+'/'+service_name+'/api/StatefulQuery/'+partition_id
+
+    cluster = Cluster.from_sfclient(client)
+    service = cluster.get_application(application_name).get_service(service_name)
+
     # call get service with headers and params
     with open(input_file) as json_file:
         json_data = json.load(json_file)
-        #print json.dumps(json_data, indent=4)
-        json_data2 = json.dumps(json_data, indent=4)
-        response = requests.put(url, data=json_data2)
-    print("-- Execute result ---\n")
-    print(json.dumps(json.loads(response.text), indent=4))
-  
+        service.execute(json_data)
+    return

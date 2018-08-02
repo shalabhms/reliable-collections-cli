@@ -2,7 +2,17 @@
 
 In this walkthrough, we have gotten a request to update the `Age` of one of our users, who has `Email` `user-0005@example.com` to `19`. This tutorial operates against the sample queryable application [BasicApp](https://github.com/jessebenson/service-fabric-queryable/tree/master/samples/Basic), which you can download and deploy to your local Service Fabric cluster to follow along.
 
-Remember that throughout `rcctl`, you can generally shorten arguments to their single letter name. You can see the syntax by using the `-h` help flag on any function. For example: `--application-name = -a`,  `--service-name = -s`, `--output-file = -out`, etc.
+Remember that throughout `rcctl`, you can generally shorten arguments to their single letter name. Use `-h` on any method to see its options
+
+| long name | short name |
+| --------- | ---------- |
+|--aplication-name| -a |
+|--service-name|-s |
+|--dictionary-name|-d|
+|--output-file|-out|
+|--input-file|-in|
+|--query-string|-q|
+
 
 ## Walkthrough
 
@@ -178,8 +188,8 @@ Now our user looks like:
 ```shell
 [
     {
-        "Collection": "users"
-        "Operation": "Update"
+        "Collection": "users",
+        "Operation": "Update",
         "PartitionId": "82b75748-a7c4-4ad3-8b16-fee77247bb8b",
         "Key": {
             "First": "First0005",
@@ -205,4 +215,28 @@ Now our user looks like:
 ]
 ```
 
-And just like that, we have updated the information of a user using `rcctl`.
+Finally, we can carry out our execute, using:
+
+```shell
+rcctl dictionary execute --application-name BasicApp --service-name UserSvc --input-file user-5.json
+```
+
+Returns:
+
+```shell
+Execute operation returned with OK
+[
+    {
+        "Collection": "users",
+        "PartitionId": "82b75748-a7c4-4ad3-8b16-fee77247bb8b",
+        "Key": {
+            "First": "First0005",
+            "Last": "Last0005"
+        },
+        "Status": 200,
+        "Description": null
+    }
+]
+```
+
+And just like that, we have updated the age of one of our users!
