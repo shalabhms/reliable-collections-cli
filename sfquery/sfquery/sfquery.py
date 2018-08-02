@@ -14,14 +14,15 @@ class PartitionLookup(Enum):
 
 class Cluster(object):
 
-    _fabric_client = None;
+    _fabric_client = None
     _namespace = '{http://schemas.microsoft.com/2011/01/fabric}'
-    _url = None;
+    _url = None
     
     def __init__(self, credentials, url):
         self._url = url
         self._fabric_client = ServiceFabricClientAPIs(credentials, url)
         
+    @staticmethod
     def from_sfclient(sfclient):
         credentials = sfclient.config.credentials
         url = sfclient.config.base_url
@@ -30,7 +31,7 @@ class Cluster(object):
     def get_applications(self):
         applications = []
         
-        continuation_token = None;
+        continuation_token = None
         while True:
             paged_application_info_list = self._fabric_client.get_application_info_list(0, None, False, continuation_token)
             for application_info in paged_application_info_list.items:
@@ -69,7 +70,7 @@ class Application(object):
     def get_services(self):
         services = []
         
-        continuation_token = None;
+        continuation_token = None
         while True:
             paged_service_info_list = self.cluster._fabric_client.get_service_info_list(self.name, None, continuation_token)
             for service_info in paged_service_info_list.items:
@@ -153,7 +154,7 @@ class Service(object):
         partitions = self._get_partition_info_list()
         if partitions[0].service_partition_kind == 'Int64Range':
             for partition in partitions:
-                if key <= partition.high_key and key >= parition.low_key:
+                if key <= partition.high_key and key >= partition.low_key:
                     return partition.id
         elif partitions[0].service_partition_kind == 'Named':
             for partition in partitions:
@@ -169,8 +170,25 @@ class Service(object):
                 return dictionary
         raise ValueError("Could not find dictionary with name: {}".format(name))
                          
-#TODO: refactor to add Collection which dictionary inherits from     
-    
+    def execute(self, execute_json_list):
+        if not isinstance(execute_json_list, (list,)):
+            raise ValueError("Provided dict must be a list of json, where each include PartitionId, Key, Value, Etag, Collection, and Operation")
+        
+        for execute_json in execute_json_list:
+            if not "Collection" in execute_json:
+                raise ValueError("json must have 'Collection:' with the name of the collection you want to update")
+            if not "Operation" in execute_json:
+                raise ValueError("json must have 'Operation:' with either Update, Add, or Delete")
+
+        r = requests.post(self._url + "/$query/", json=execute_json_list)
+
+        if r.status_code is 200:
+            print("Execute operation returned with OK")
+            print(json.dumps(r.json(), indent=4))
+        else:
+            print("Execute operation returned with Error")
+            print(r.text)
+        
 class Dictionary(object):
     
     service = None
@@ -213,7 +231,7 @@ class Dictionary(object):
             elif partitions[0].service_partition_kind == 'Singleton':
                 partition_type = 'Singleton'
         elif param == PartitionLookup.KEY:
-            partition_key = partition_name;
+            partition_key = partition_name
             partition_id = self.service._partition_key_to_id(partition_name)
             partition_type = partitions[0].service_partition_kind
         elif param == PartitionLookup.ID:
@@ -247,7 +265,7 @@ class Dictionary(object):
             r = '{}/$query/{}/{}?{}&PartitionKind={}&PartitionKey={}'.format(self.service._url, partition_id, self.name, querystring, partition_type, partition_key)
         
         return requests.get(r).json()
-    
+
     # should be of form: Namespace.TypeName
     def get_complex_type(self, typeask):
         
